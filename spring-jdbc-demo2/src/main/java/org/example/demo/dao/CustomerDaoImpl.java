@@ -1,7 +1,9 @@
 package org.example.demo.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,47 @@ public class CustomerDaoImpl implements CustomerDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public Customer createCustomer(Customer customer) throws SQLException {
+		Connection connection=dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("insert into customer values(?,?,?,?)");
+		
+		preparedStatement.setInt(1, customer.getCustomerId());
+		preparedStatement.setString(2, customer.getFirstName());
+		preparedStatement.setString(3, customer.getLastName());
+		preparedStatement.setString(4, customer.getEmail());
+		
+		preparedStatement.executeUpdate();
+		
+		return customer;
+	}
+
+	@Override
+	public Customer findByCustomerId(int customerId) throws SQLException {
+		Connection connection=dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("select * from customer where customerId=?");
+		preparedStatement.setInt(1, customerId);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		Customer cust = null;
+		while(resultSet.next())
+		{
+		 cust = new Customer(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+		}
+		
+		return cust;
+	}
+
+	@Override
+	public int deleteByCustomerId(int customerId) throws SQLException {
+		Connection connection=dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement("delete from customer where customerId=?");
+		preparedStatement.setInt(1, customerId);
+		int count = preparedStatement.executeUpdate();
+		
+		return count;
 	}
 
 }
