@@ -21,7 +21,7 @@ public class SpringConfig {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan("org.example.demo.model");
+		sessionFactory.setPackagesToScan("org.example.demo.student.model","org.example.demo.instructor.model");
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
@@ -46,6 +46,7 @@ public class SpringConfig {
 	private final Properties hibernateProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.show_sql","true");
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto","update");
 		return hibernateProperties;
 	}
 
