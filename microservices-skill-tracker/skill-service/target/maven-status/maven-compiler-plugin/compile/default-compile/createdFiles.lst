@@ -1,0 +1,10 @@
+com\example\demo\controllers\SkillRestController.class
+com\example\demo\config\CustomUserDetailsService.class
+com\example\demo\config\SpringSecurityConfig.class
+com\example\demo\repos\AuthRoleRepository.class
+com\example\demo\repos\SkillRepo.class
+com\example\demo\model\Skill.class
+com\example\demo\repos\AuthUserRepository.class
+com\example\demo\model\User.class
+com\example\demo\SkillServiceApplication.class
+com\example\demo\model\Role.class
